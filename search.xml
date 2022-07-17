@@ -12,6 +12,12 @@
       
       
       
+        <tags>
+            
+            <tag> Python学习 </tag>
+            
+        </tags>
+      
     </entry>
     
     
@@ -25,6 +31,12 @@
       
       
       
+        <tags>
+            
+            <tag> Python学习 </tag>
+            
+        </tags>
+      
     </entry>
     
     
@@ -37,6 +49,12 @@
         <content type="html"><![CDATA[<h1 id="Python入门"><a href="#Python入门" class="headerlink" title="Python入门"></a>Python入门</h1><p> 个人笔记，在有C++和Java基础下的学习。</p><h2 id="命令控制行和python交互页面的区别："><a href="#命令控制行和python交互页面的区别：" class="headerlink" title="命令控制行和python交互页面的区别："></a>命令控制行和python交互页面的区别：</h2><ul><li>命令控制行：输入命令Python进入交互界面，然后可以写Python命令，<br>可以通过<code>python 文件名.py</code>运行整个Python文件。使用<code>exit（） </code>命令退出。<br><img src="https://raw.githubusercontent.com/DecarburizationFormaldehyde/Blog_ImgHosting/master/article_img/day_1_2.png" alt="day_1_2.png (959×220) (raw.githubusercontent.com)"></li><li>Python交互界面：直接输入Python语句，不能运行整个Python文件。<br><img src="https://raw.githubusercontent.com/DecarburizationFormaldehyde/Blog_ImgHosting/master/article_img/day_1_1.png" alt="day_1_1.png (1221×250) (raw.githubusercontent.com)"><br>Python交互模式主要是为了调试Python代码用的，也便于初学者学习，它不是正式运行Python代码的环境！<br>tip：SyntaxError指的是代码语法有错误。</li></ul><h2 id="第一个程序"><a href="#第一个程序" class="headerlink" title="第一个程序"></a>第一个程序</h2><p>写一个hello world，用记事本或者IDE都可以。通过命令控制行运行</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;hello world&quot;</span>)</span><br></pre></td></tr></table></figure><ul><li>在py文件所在目录下，打开命令控制行，使用命令运行：<br><img src="https://raw.githubusercontent.com/DecarburizationFormaldehyde/Blog_ImgHosting/master/article_img/day_1_3.png" alt="day_1_3.png (639×71) (raw.githubusercontent.com)"></li></ul><h2 id="输入输出"><a href="#输入输出" class="headerlink" title="输入输出"></a>输入输出</h2><p>输入：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">name = <span class="built_in">input</span>(<span class="string">&#x27;这里可以加一个提示，不必用print&#x27;</span>)     <span class="comment"># name是接收变量</span></span><br></pre></td></tr></table></figure><p>输出：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;&#x27;</span>,<span class="string">&#x27;&#x27;</span>)  <span class="comment"># 用于连续输出，中间有空格</span></span><br></pre></td></tr></table></figure><h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 用#表示注释</span></span><br></pre></td></tr></table></figure><h2 id="代码风格"><a href="#代码风格" class="headerlink" title="代码风格"></a>代码风格</h2><p>Python中代码采用缩进，可以不写分号。<code>:</code>结尾时，后续视为代码块自动缩进（采用IDE时），缩进距离无限制<br>一般为四个空格。显然Python对cv工程师很不友好，要检查缩进是否正确。<br>Python是大小写敏感型。 </p>]]></content>
       
       
+      
+        <tags>
+            
+            <tag> Python学习 </tag>
+            
+        </tags>
       
     </entry>
     
