@@ -4,13 +4,19 @@
   
     
     <entry>
-      <title>yolo学习</title>
+      <title>yolo系列基础学习</title>
       <link href="/2023/07/04/yoloV3/"/>
       <url>/2023/07/04/yoloV3/</url>
       
-        <content type="html"><![CDATA[<h1 id="yolov1">Yolov1</h1><h2 id="核心内容">核心内容</h2><figure><imgsrc="https://blogpicture-1310464487.cos.ap-nanjing.myqcloud.com/%20typora/image-20230704171038267.png"alt="分而治之" /><figcaption aria-hidden="true">分而治之</figcaption></figure><p>①分而治之，其类似卷积神经网络，目的是通过分块找到物体中心，其核心思路就是一个莽，全都用CNN莽出来</p><p>②leaky ReLu <span class="math display">\[y=\begin{array}{l}  \left\{\begin{matrix}  x,x&gt;0 \\0.1x,otherwise\end{matrix}\right.    \end{array}\]</span> ③ 端到端训练</p><figure><imgsrc="https://blogpicture-1310464487.cos.ap-nanjing.myqcloud.com/%20typora/20180910130225149"alt="端到端训练" /><figcaption aria-hidden="true">端到端训练</figcaption></figure><h1 id="yolov2">Yolov2</h1><h1 id="yolov3">Yolov3</h1><h2 id="基本流程">基本流程</h2><figure><imgsrc="https://blogpicture-1310464487.cos.ap-nanjing.myqcloud.com/%20typora/24215864-83d220ef29016abf"alt="基本组件" /><figcaption aria-hidden="true">基本组件</figcaption></figure><h2 id="基本组件">基本组件</h2><p>CBL：Yolov3网络结构的最小组件，由Conv+Bn+Leaky_relu激活函数组成</p><p>Res unit：借鉴Resnet网络中的残差结构，让网络可以构建的更深。</p><p>ResX：由一个CBL和X个残差组件构成</p><h2 id="基础操作">基础操作</h2><p>Concat：拼接</p><p>Add：张量相加，与shortcut功能一致</p>]]></content>
+        <content type="html"><![CDATA[<h1 id="yolov1">Yolov1</h1><h2 id="核心内容">核心内容</h2><figure><imgsrc="https://blogpicture-1310464487.cos.ap-nanjing.myqcloud.com/%20typora/image-20230704171038267.png"alt="分而治之" /><figcaption aria-hidden="true">分而治之</figcaption></figure><p>①分而治之，其类似卷积神经网络，目的是通过分块找到物体中心，其核心思路就是一个莽，全都用CNN莽出来</p><p>②leaky ReLu <span class="math display">\[y=\begin{array}{l}  \left\{\begin{matrix}  x,x&gt;0 \\0.1x,otherwise\end{matrix}\right.    \end{array}\]</span> ③ 端到端训练</p><figure><imgsrc="https://blogpicture-1310464487.cos.ap-nanjing.myqcloud.com/%20typora/20180910130225149"alt="端到端训练" /><figcaption aria-hidden="true">端到端训练</figcaption></figure><h1 id="yolov2">Yolov2</h1><h2 id="同比v1的改进">同比v1的改进</h2><p><strong>tradeoff：折中</strong></p><p>batch normalization：某种正则化手段，BN</p><p>high resolution classifier：微调与训练模型</p><p>Convolutional With Anchor Boxes：anchor机制</p><ul><li><p>Dimension Clusters：选择anchorprior需要手动设置，采用k-means聚类找到一个合适的大小</p></li><li><p>Direct location prediction: 解决不稳定，相对位置预测</p></li></ul><p>Fine-Grained Features: 调整后的yolo将在13*13的特征上做检测任务</p><p>multi-scale training：多标准化输入训练</p><p>Darknet-19：backbone网络</p><h1 id="yolov3">Yolov3</h1><h2 id="基本流程">基本流程</h2><figure><imgsrc="https://blogpicture-1310464487.cos.ap-nanjing.myqcloud.com/%20typora/24215864-83d220ef29016abf"alt="基本组件" /><figcaption aria-hidden="true">基本组件</figcaption></figure><h2 id="保留部分">保留部分</h2><ul><li>分割检测</li><li>leaky ReLu</li><li>端到端训练，loss function 不变</li><li>BN正则化不变，放在leaky ReLu和每一层卷积后</li><li>mult scale training</li></ul><h2 id="基本组件">基本组件</h2><p>CBL：Yolov3网络结构的最小组件，由Conv+Bn+Leaky_relu组成</p><p>Res unit：借鉴Resnet网络中的残差结构，让网络可以构建的更深。</p><p>ResX：由一个CBL和X个残差组件构成</p><h2 id="基础操作">基础操作</h2><p>Concat：拼接</p><p>Add：张量相加，与shortcut功能一致</p><h2 id="backbone">backbone</h2><p>v3中没有池化层和全连接层，尺寸变换通过改变卷积和步长</p><p>backbone会将输入图片的尺寸缩短到原来的<spanclass="math inline">\(\frac{1}{32}\)</span>,所以要求输入图片得是32的倍数</p><figure><imgsrc="https://blogpicture-1310464487.cos.ap-nanjing.myqcloud.com/%20typora/24215864-e67c9e615638e745"alt="尺寸变换比较" /><figcaption aria-hidden="true">尺寸变换比较</figcaption></figure><p>这里要注意Darknet-19是要比Darknet-53快的，因此v3还提供了tinynet</p><h2 id="perdictions-across-scales">Perdictions across scales</h2><figure><imgsrc="https://blogpicture-1310464487.cos.ap-nanjing.myqcloud.com/%20typora/image-20230705105112921.png"alt="image-20230705105112921" /><figcaption aria-hidden="true">image-20230705105112921</figcaption></figure><p>这个借鉴了FPN(feature pyramidnetworks)，采用多尺度来对不同size的目标进行检测，越精细的gridcell就可以检测出越精细的物体。规律为1:2:4</p>]]></content>
       
       
+      
+        <tags>
+            
+            <tag> 视觉 </tag>
+            
+        </tags>
       
     </entry>
     
