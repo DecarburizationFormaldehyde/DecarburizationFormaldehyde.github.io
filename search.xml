@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>搓OS-day4</title>
+      <link href="/2024/01/12/%E6%90%93OS-day4/"/>
+      <url>/2024/01/12/%E6%90%93OS-day4/</url>
+      
+        <content type="html"><![CDATA[<h2 id="搓os-day4">搓OS-day4</h2><p>今天才是真真的操作系统的部分，并发控制，今天要学习的是多线程编程库（没怎么看，少更）。</p><h3 id="复习进程与线程">复习：进程与线程</h3><p><code>进程</code>：运行的一个程序以及其已经在计算机中的所拥有的资源的和（理解型说法，并不准确），进程是<code>资源分配</code>的基本单位。PCB用于标志进程的存在。此外关于进程还存在<code>进程间通信问题</code>,<code>进程特性</code>，<code>进程切换</code>等问题。</p><p>就我个人理解为何要引入进程概念，是为了管理资源分配的问题，不只是空间资源还有计算资源，因为计算机的资源是紧俏的（当然也有机制限制），并不能满足所有的所有的程序<code>同时</code>运行（当然这里限制在单核处理器）。但是由于应用有要求，需要发展出能在人难以感知的情况下”同时“运行（并发），而进程恰好通过把资源与程序进行耦合（不知道用词好不好，类似一个搭积木的感觉）既保护了程序状态，又实现了程序运行的切换。</p><p>当人们线程用出来了甜头，想要进一步榨干计算机资源（bushi），然后就有了线程，线程就是榨干计算资源的（），但是线程并不是资源分配的单位。</p><h3 id="多线程编程">多线程编程</h3><p>貌似并不难</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;thread.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">Thello</span><span class="params">(<span class="type">int</span> id)</span> &#123;</span><br><span class="line">  <span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%c&quot;</span>, <span class="string">&quot;_ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;</span>[id]);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">    create(Thello);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>很好玩，使命令行爆炸。</p><figure><imgsrc="https://blogpicture-1310464487.cos.ap-nanjing.myqcloud.com/%20typora/image-20240112211838011.png"alt="image-20240112211838011" /><figcaption aria-hidden="true">image-20240112211838011</figcaption></figure><p>这下很有并发的魅力（不是），但是联系底层让人后背发凉，细一想貌似也没什么大不了的</p><p><code>“处理器一次执行一条指令” 的基本假设在今天的计算机系统上不再成立</code>，虽然但是这是不难理解的，两条程序由于并发or并行很可能会出现共享区的变量出现问题</p><p>后面的故事，还是读参考链接吧，如果有操作系统基础的同学一定明白，进程同步互斥的问题都是从这里衍生出来的。</p><h3 id="参考链接">参考链接</h3><p><a href="https://jyywiki.cn/OS/2023/build/lect5.ipynb.html">5.多处理器编程：从入门到放弃 (jyywiki.cn)</a></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 搓OS.log </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>搓OS-day3</title>
       <link href="/2024/01/10/%E6%90%93OS-day3/"/>
       <url>/2024/01/10/%E6%90%93OS-day3/</url>
