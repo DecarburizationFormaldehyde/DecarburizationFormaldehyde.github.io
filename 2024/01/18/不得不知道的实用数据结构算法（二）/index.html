@@ -1,0 +1,274 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>不得不知道的实用数据结构算法（二） | 脱碳甲醛的博客</title><meta name="keywords" content="C语言"><meta name="author" content="脱碳甲醛"><meta name="copyright" content="脱碳甲醛"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="不得不知道的实用数据结构算法（二） 依旧是简单总结，主要还是一个思路上的应对问题，不去探讨实现细节，有机会单独讨论实现细节（毕竟我忘得差不多了）。 链表 首先先回忆链表的定义，以及其基本操作： 12345678#include &lt;stdio.h&gt;#include &lt;stdlib.h&gt;typedef struct Node&amp;#123;    int data;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="不得不知道的实用数据结构算法（二）">
+<meta property="og:url" content="http://example.com/2024/01/18/%E4%B8%8D%E5%BE%97%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84%E5%AE%9E%E7%94%A8%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AE%97%E6%B3%95%EF%BC%88%E4%BA%8C%EF%BC%89/index.html">
+<meta property="og:site_name" content="脱碳甲醛的博客">
+<meta property="og:description" content="不得不知道的实用数据结构算法（二） 依旧是简单总结，主要还是一个思路上的应对问题，不去探讨实现细节，有机会单独讨论实现细节（毕竟我忘得差不多了）。 链表 首先先回忆链表的定义，以及其基本操作： 12345678#include &lt;stdio.h&gt;#include &lt;stdlib.h&gt;typedef struct Node&amp;#123;    int data;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blogpicture-1310464487.cos.ap-nanjing.myqcloud.com/ typora/picture_in_wx_4.jpg">
+<meta property="article:published_time" content="2024-01-18T08:43:23.000Z">
+<meta property="article:modified_time" content="2024-01-18T11:34:03.670Z">
+<meta property="article:author" content="脱碳甲醛">
+<meta property="article:tag" content="C语言">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blogpicture-1310464487.cos.ap-nanjing.myqcloud.com/ typora/picture_in_wx_4.jpg"><link rel="shortcut icon" href="/img/%E5%9B%BE%E6%A0%87.png"><link rel="canonical" href="http://example.com/2024/01/18/%E4%B8%8D%E5%BE%97%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84%E5%AE%9E%E7%94%A8%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AE%97%E6%B3%95%EF%BC%88%E4%BA%8C%EF%BC%89/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '不得不知道的实用数据结构算法（二）',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-01-18 19:34:03'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/mycss.css"><link rel="stylesheet" href="/css/footer.css"><link rel="stylesheet" href="/css/background.css"><link rel="stylesheet" href="/css/web_bg.css"><meta name="generator" content="Hexo 6.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/%E5%A4%B4%E5%83%8F.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">29</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">10</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://blogpicture-1310464487.cos.ap-nanjing.myqcloud.com/ typora/头图11.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">脱碳甲醛的博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">不得不知道的实用数据结构算法（二）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-01-18T08:43:23.000Z" title="发表于 2024-01-18 16:43:23">2024-01-18</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-01-18T11:34:03.670Z" title="更新于 2024-01-18 19:34:03">2024-01-18</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="leancloud_visitors" id="/2024/01/18/%E4%B8%8D%E5%BE%97%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84%E5%AE%9E%E7%94%A8%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AE%97%E6%B3%95%EF%BC%88%E4%BA%8C%EF%BC%89/" data-flag-title="不得不知道的实用数据结构算法（二）"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span class="leancloud-visitors-count"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2024/01/18/%E4%B8%8D%E5%BE%97%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84%E5%AE%9E%E7%94%A8%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AE%97%E6%B3%95%EF%BC%88%E4%BA%8C%EF%BC%89/#post-comment" itemprop="discussionUrl"><span class="valine-comment-count" data-xid="/2024/01/18/%E4%B8%8D%E5%BE%97%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84%E5%AE%9E%E7%94%A8%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AE%97%E6%B3%95%EF%BC%88%E4%BA%8C%EF%BC%89/" itemprop="commentCount"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2
+id="不得不知道的实用数据结构算法二">不得不知道的实用数据结构算法（二）</h2>
+<p>依旧是简单总结，主要还是一个思路上的应对问题，不去探讨实现细节，有机会单独讨论实现细节（毕竟我忘得差不多了）。</p>
+<h3 id="链表">链表</h3>
+<p>首先先回忆链表的定义，以及其基本操作：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">int</span> data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Node</span>* <span class="title">next</span>;</span></span><br><span class="line">&#125;Node;</span><br></pre></td></tr></table></figure>
+<p>我们经常会去比较顺序表与链表的优劣，令我们印象最深刻的往往是插入算法的比较，下面列个表格比较一下基本操作的时间复杂度：</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>顺序表</th>
+<th>链表</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>随机存取</td>
+<td>O(1)</td>
+<td>不能实现</td>
+</tr>
+<tr class="even">
+<td>插入</td>
+<td>O(n)</td>
+<td>O(1)</td>
+</tr>
+<tr class="odd">
+<td>删除</td>
+<td>O(n)</td>
+<td>O(1)</td>
+</tr>
+<tr class="even">
+<td>遍历</td>
+<td>O(n)</td>
+<td>O(n)</td>
+</tr>
+</tbody>
+</table>
+<p>相对顺序表而言，链表的操作貌似更快，但是也更有挑战性，因为没有了随机存取的特性，导致链表在获取元素时是很麻烦的，但是，往往这种拧巴的东西就很喜欢出题。</p>
+<h3 id="技巧一双多指针">技巧一：双（多）指针</h3>
+<p>这个方法与其说叫做一种技巧，不如说是一种实现的思路。我们考虑单向带头结点的有序链表，下面开始分类说明：</p>
+<p><code>储存</code>：当我们需要在某个元素前插入一个新的节点，那么我在找到该节点时还需要这个节点的前一个节点，这时候我们就需要一个双指针。不要小看这个思路，储存好数据能做很多事情（但是我不太会举例子）</p>
+<p><code>不同链表</code>：比如合并两个有序链表，我们也需要使用多个指针</p>
+<p><code>二分查找、快速排序</code>：这是从排序和查找中拿来的思路，一般都是比较容易看出的，但是用在链表上并不都快，二分查找只有在随机存取下才快；快排的分治的思路是在链表上很常应用的</p>
+<p><code>对撞指针</code>：就是首尾指针，双向遍历，但是要注意这里要求就必须是双向链表了</p>
+<h3 id="技巧二快慢指针">技巧二：快慢指针</h3>
+<p>这个就比较链表了，解决的问题主要有：</p>
+<p><code>有公共节点的链表</code>：</p>
+<p><code>有环的链表</code>：</p>
+<p><code>分块位置关系的链表</code></p>
+<h3 id="技巧三就地逆置">技巧三：就地逆置</h3>
+<p>这个实际上就是头插法的灵活使用，其解决的问题与前面提过的顺序表是一致的。</p>
+<h3 id="参考链接">参考链接</h3>
+<p><a
+target="_blank" rel="noopener" href="https://blog.csdn.net/qq_54773252/article/details/122836179">双指针算法-CSDN博客</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">脱碳甲醛</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2024/01/18/%E4%B8%8D%E5%BE%97%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84%E5%AE%9E%E7%94%A8%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AE%97%E6%B3%95%EF%BC%88%E4%BA%8C%EF%BC%89/">http://example.com/2024/01/18/%E4%B8%8D%E5%BE%97%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84%E5%AE%9E%E7%94%A8%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AE%97%E6%B3%95%EF%BC%88%E4%BA%8C%EF%BC%89/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">脱碳甲醛的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/C%E8%AF%AD%E8%A8%80/">C语言</a></div><div class="post_share"><div class="social-share" data-image="https://blogpicture-1310464487.cos.ap-nanjing.myqcloud.com/ typora/picture_in_wx_4.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/01/31/%E6%90%93OS-day7/"><img class="prev-cover" src="https://blogpicture-1310464487.cos.ap-nanjing.myqcloud.com/ typora/头图18.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">搓OS-day7</div></div></a></div><div class="next-post pull-right"><a href="/2024/01/18/%E6%90%93OS-day6/"><img class="next-cover" src="https://blogpicture-1310464487.cos.ap-nanjing.myqcloud.com/ typora/头图17.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">搓OS-day6</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/08/05/cFrame/" title="C语言文件框架与运行"><img class="cover" src="https://blogpicture-1310464487.cos.ap-nanjing.myqcloud.com/ typora/头图_10.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-05</div><div class="title">C语言文件框架与运行</div></div></a></div><div><a href="/2024/01/13/%E4%B8%8D%E5%BE%97%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84%E5%AE%9E%E7%94%A8%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AE%97%E6%B3%95%EF%BC%88%E4%B8%80%EF%BC%89/" title="不得不知道的实用数据结构算法（一）"><img class="cover" src="https://blogpicture-1310464487.cos.ap-nanjing.myqcloud.com/ typora/picture_in_wx_4.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-13</div><div class="title">不得不知道的实用数据结构算法（一）</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/%E5%A4%B4%E5%83%8F.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">脱碳甲醛</div><div class="author-info__description">菜狗，心血来潮</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">29</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">10</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/DecarburizationFormaldehyde" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:690615906@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到海鲜批发市场！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8D%E5%BE%97%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84%E5%AE%9E%E7%94%A8%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AE%97%E6%B3%95%E4%BA%8C"><span class="toc-number">1.</span> <span class="toc-text">不得不知道的实用数据结构算法（二）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%93%BE%E8%A1%A8"><span class="toc-number">1.1.</span> <span class="toc-text">链表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%80%E5%B7%A7%E4%B8%80%E5%8F%8C%E5%A4%9A%E6%8C%87%E9%92%88"><span class="toc-number">1.2.</span> <span class="toc-text">技巧一：双（多）指针</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%80%E5%B7%A7%E4%BA%8C%E5%BF%AB%E6%85%A2%E6%8C%87%E9%92%88"><span class="toc-number">1.3.</span> <span class="toc-text">技巧二：快慢指针</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%80%E5%B7%A7%E4%B8%89%E5%B0%B1%E5%9C%B0%E9%80%86%E7%BD%AE"><span class="toc-number">1.4.</span> <span class="toc-text">技巧三：就地逆置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">1.5.</span> <span class="toc-text">参考链接</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/02/04/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB1/" title="论文阅读1-TFDNet"><img src="https://blogpicture-1310464487.cos.ap-nanjing.myqcloud.com/ typora/头图20.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="论文阅读1-TFDNet"/></a><div class="content"><a class="title" href="/2024/02/04/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB1/" title="论文阅读1-TFDNet">论文阅读1-TFDNet</a><time datetime="2024-02-04T15:57:20.000Z" title="发表于 2024-02-04 23:57:20">2024-02-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/02/04/%E6%90%93OS-day8/" title="搓OS-day8"><img src="https://blogpicture-1310464487.cos.ap-nanjing.myqcloud.com/ typora/头图21.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="搓OS-day8"/></a><div class="content"><a class="title" href="/2024/02/04/%E6%90%93OS-day8/" title="搓OS-day8">搓OS-day8</a><time datetime="2024-02-04T15:55:11.000Z" title="发表于 2024-02-04 23:55:11">2024-02-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/02/04/%E6%90%93OS-%E7%95%AA%E5%A4%961/" title="手搓OS-番外1"><img src="https://blogpicture-1310464487.cos.ap-nanjing.myqcloud.com/ typora/头图19.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="手搓OS-番外1"/></a><div class="content"><a class="title" href="/2024/02/04/%E6%90%93OS-%E7%95%AA%E5%A4%961/" title="手搓OS-番外1">手搓OS-番外1</a><time datetime="2024-02-04T02:14:33.000Z" title="发表于 2024-02-04 10:14:33">2024-02-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/31/%E6%90%93OS-day7/" title="搓OS-day7"><img src="https://blogpicture-1310464487.cos.ap-nanjing.myqcloud.com/ typora/头图18.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="搓OS-day7"/></a><div class="content"><a class="title" href="/2024/01/31/%E6%90%93OS-day7/" title="搓OS-day7">搓OS-day7</a><time datetime="2024-01-31T15:12:36.000Z" title="发表于 2024-01-31 23:12:36">2024-01-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/18/%E4%B8%8D%E5%BE%97%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84%E5%AE%9E%E7%94%A8%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AE%97%E6%B3%95%EF%BC%88%E4%BA%8C%EF%BC%89/" title="不得不知道的实用数据结构算法（二）"><img src="https://blogpicture-1310464487.cos.ap-nanjing.myqcloud.com/ typora/picture_in_wx_4.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="不得不知道的实用数据结构算法（二）"/></a><div class="content"><a class="title" href="/2024/01/18/%E4%B8%8D%E5%BE%97%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84%E5%AE%9E%E7%94%A8%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AE%97%E6%B3%95%EF%BC%88%E4%BA%8C%EF%BC%89/" title="不得不知道的实用数据结构算法（二）">不得不知道的实用数据结构算法（二）</a><time datetime="2024-01-18T08:43:23.000Z" title="发表于 2024-01-18 16:43:23">2024-01-18</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 脱碳甲醛</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'n33P9kVvXyIyjzIOpniVm5f9-MdYXbMMI',
+      appKey: 'yz9sAXxhKmMFWg1T6zGIhSsP',
+      avatar: 'monsterid',
+      serverURLs: 'https://n33p9kvv.api.lncldglobal.com',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: true
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
