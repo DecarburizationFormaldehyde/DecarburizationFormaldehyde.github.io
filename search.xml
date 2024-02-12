@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>搓OS-day9</title>
+      <link href="/2024/02/12/%E6%90%93OS-day9/"/>
+      <url>/2024/02/12/%E6%90%93OS-day9/</url>
+      
+        <content type="html"><![CDATA[<h2 id="手搓os-day9">手搓OS-day9</h2><p>重量级难度，分配内存与回收</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 搓OS.log </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>手搓OS-番外2</title>
       <link href="/2024/02/10/%E6%90%93OS-%E7%95%AA%E5%A4%962/"/>
       <url>/2024/02/10/%E6%90%93OS-%E7%95%AA%E5%A4%962/</url>
