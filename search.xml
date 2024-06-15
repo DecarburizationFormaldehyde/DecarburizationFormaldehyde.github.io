@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>多元统计学（一）</title>
+      <link href="/2024/06/11/%E5%A4%9A%E5%85%83%E7%BB%9F%E8%AE%A1%E5%AD%A6%EF%BC%88%E4%B8%80%EF%BC%89/"/>
+      <url>/2024/06/11/%E5%A4%9A%E5%85%83%E7%BB%9F%E8%AE%A1%E5%AD%A6%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<h2 id="多元统计学一">多元统计学（一）</h2><p>ok，又是新坑，我们来搞一下多元统计学，狠狠的补充一下基础。数学和那啥人工智能基础还不太一样，这玩意就抽象太多了，嗯，因此咱就只能尽可能融入一些自己的理解，但是就会让这个数学描述不甚严谨。（音乐预警）</p><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="100%" height="86" src="//music.163.com/outchain/player?type=2&amp;id=2103661510&amp;auto=0&amp;height=66"></iframe><h3 id="多元">多元</h3><p>首先，笔者默认大家是掌握了基本的概率论与数理统计的，这样我们就可以减少很多东西的介绍，而进行直接推广理解。</p><p>在各位的大二的概率论与数理统计和高等数学中已经很好的接触了二元函数乃至多元函数，但是如果我说线性代数先天和多元函数很般配呢（）</p><p><img src="https://blogpicture-1310464487.cos.ap-nanjing.myqcloud.com/%20typora/image-20240612230038124.png" alt="image-20240612230038124" /></p><p>咳咳，虽然画风有点子诡异。既然我们要聊多元统计，总要先聊聊多元的理解。通俗一点的讲，我们首先来回顾二维平面下对于一个点的表示：</p><p>存在一个直角坐标系<spanclass="math inline">\(XoY\)</span>，则在该平面的点均可以表示为一个二元数对（或许称之为一个二元关系也不是不行），记作<spanclass="math inline">\((x,y)\)</span>。我们理解一下，如果在直线上表示一个点可以表示为<spanclass="math inline">\(x=x_1\)</span>，二维平面上表达为<spanclass="math inline">\((x,y)=(x_1,y_1)\)</span>​，实际上对于空间上的一个点的表示可以简单理解为几个坐标的简单罗列，这时向量刚好起到了这个作用！</p><p><strong>理解1：在高维空间中，向量就可以表示一个点</strong></p><p>现在，我们重新建立一下观念，那么不管多少维的数据（其实就是要给点），那么我们都可以转换为一个向量<spanclass="math inline">\(\mathbf{x}\)</span>（特别强调：加粗小写x才是向量）</p><p>现在我们就可以获得一个统一的函数描述，数学表达为： <spanclass="math display">\[z=f(\mathbf{x})\]</span> 好的，现在我们进入多元的世界罢。</p><h3 id="多元随机变量">多元随机变量</h3><p>其实理解随机变量就理解为是一个向量<spanclass="math inline">\(\mathbf{x}\)</span>（如果需要了解随机变量与随机样本的话咱可以单独写一下），但是在统计学中是要把随机变量记作大写字母的（怪麻烦的，很可能与后边的描述有冲突），这块需要大家自己去看一下阅读材料</p><p>分布函数：这里服从二元定义的推广（能够直接导出概率）</p><p>密度函数：这里服从二元定义的推广（对其各个维度积分得到分布函数）</p><p>独立性：服从二元定义，注意这里的定义很严格，切忌凭自己感觉来判断</p><p>期望：服从基本定义，记作<spanclass="math inline">\(\mu=E(X)\)</span></p><p>协方差矩阵：由于在多元统计中，变量为一个向量<spanclass="math inline">\(\mathbf{x}\)</span>，因此对一个随机变量求方差实际上是得到一个矩阵，也就是协方差矩阵<spanclass="math inline">\(\Sigma\)</span>，同样对两个随机变量<spanclass="math inline">\(x,y\)</span>​，也可以采用相同方法求二者的协方差矩阵</p><h3 id="统计距离">统计距离</h3><p>这里我们来描述一下两个比较著名的距离，欧式距离和马氏距离</p><p>欧式距离和马氏距离最大的区别就是在度量尺度上的一个改进</p><h4 id="欧式距离"><strong>欧式距离</strong></h4><p><span class="math display">\[d(P,Q)=\sqrt{(x_1-y_1)^2+(x_2-y_2)^2+\cdot\cdot\cdot+(x_n-y_n)^2}\]</span></p><p>欧式距离中，每个分量（或称维度/坐标轴，全看你理解的舒适程度）对距离的贡献一致，而且两个分量之间距离不一定具有意义，原因是两个分量不一定都拥有相同的尺度，分量1单位为cm，分量2单位为km，即使二者值完全相同，例如，<spanclass="math inline">\(x_1=50cm,x_2=0.5m,y_1=30cm,y_2=0.3m\)</span>,但是对距离的贡献却是不同的。</p><h4 id="马氏距离">马氏距离</h4><p>其实我们早就接触过了这种思想，即标准化，既然单位（衡量尺度）有问题，那么我们就通过一些手段来统一单位</p><p>马哈拉诺比斯距离，是用来衡量分布间距离的一种手段，即在总体<spanclass="math inline">\(G:N(\mu,\Sigma)\)</span>种抽取的随机样本<spanclass="math inline">\(X,Y\)</span>下，两点之间的距离为： <spanclass="math display">\[d_m^2(X,Y)=(\mathbf{X}-\mathbf{Y})^T\mathbf{\Sigma^{-1}}(\mathbf{X}-\mathbf{Y})\]</span> 如何理解呢，我们首先来看<spanclass="math inline">\((\mathbf{X}-\mathbf{Y})^T(\mathbf{X}-\mathbf{Y})\)</span>，在很久很久以前我们学习二次型的时候是不是记得二次型的表示为<span class="math display">\[\mathbf{X}\Lambda\mathbf{X}^T\]</span>所以这个定义是什么意思，就很明白了，即普普通通的各个轴上的距离的平方再乘以协方差逆，达到无量纲化的目的</p><h3 id="多元高斯分布">多元高斯分布</h3><p>在认识一个分布的时候我们需要认识几点：概率密度，分布函数，期望，方差，基本性质。下面就围绕这几点进行简单介绍：</p><p>首先我们回顾一元高斯的密度函数： <span class="math display">\[f(x)=\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(x-\mu)^2}{2\sigma^2}}\]</span> 可将其改写为： <span class="math display">\[f(x)=(2\pi)^{-\frac{1}{2}}\sigma^{-1}exp[-\frac{1}{2}(x-\mu)^T(\sigma^2)^{-1}(x-\mu)]\]</span> 可以推广为多元高斯分布： <span class="math display">\[f(\mathbf{x})=(2\pi)^{-\frac{p}{2}}|\Sigma|^{-\frac{1}{2}}exp[-\frac{1}{2}(\mathbf{x}-\mu)^T\Sigma^{-1}(\mathbf{x}-\mu)]\]</span> 其中，<spanclass="math inline">\(p\)</span>为p元正态分布，其中<spanclass="math inline">\(x\in R^{p\times 1}\)</span>，<spanclass="math inline">\(E(\mathbf{X})=\mu,D(\mathbf{X})=\Sigma\)</span></p><h3 id="总结">总结</h3><p>这玩意我确实不擅长写，但是这章基本为基础知识，等着快进到算法就舒服了。</p><h3 id="自主阅读">自主阅读</h3><p>教材：</p><iframe src="多元统计分析 第5版_何晓群_第一章.pdf" width="800px" height="800px" frameborder="0" scrolling="no"></iframe>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 多元统计分析 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>定式——无忧角托</title>
       <link href="/2024/05/31/%E5%AE%9A%E5%BC%8F%E2%80%94%E2%80%94%E6%97%A0%E5%BF%A7%E8%A7%92%E6%89%98/"/>
       <url>/2024/05/31/%E5%AE%9A%E5%BC%8F%E2%80%94%E2%80%94%E6%97%A0%E5%BF%A7%E8%A7%92%E6%89%98/</url>
