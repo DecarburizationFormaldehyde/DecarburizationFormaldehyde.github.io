@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>tranformer全流程零基础解析</title>
+      <link href="/2024/07/21/tranformer%E7%BB%86%E8%8A%82%E8%A7%A3%E6%9E%90/"/>
+      <url>/2024/07/21/tranformer%E7%BB%86%E8%8A%82%E8%A7%A3%E6%9E%90/</url>
+      
+        <content type="html"><![CDATA[<h2 id="transformer全流程零基础解析">Transformer全流程零基础解析</h2><blockquote><p>[!NOTE]</p><p>诈骗预警：虽然说是零基础，但是还是要有一般的深度学习基础，例如:基本的深度网络概念、pytorch 基本使用、对权重的基本认识等。</p></blockquote><p>本文将详细拆解Transformer的各个基本组件，并且配合基本的代码讲解，另外，本文的零基础为NLP领域零基础用户，需要有一定的深度学习认知，因此本文更偏向专业性，不会偏向通俗科普，但是读完本文可以秒杀市面上所有的Transformer介绍，下面开始正文。</p><p>原文链接：[<a href="https://arxiv.org/abs/1706.03762">1706.03762]Attention Is All You Need (arxiv.org)</a></p><h3 id="前言">前言</h3><p>本文的介绍思路将与市面上的大部分顺序不同，虽然Transformer提出的原文叫做<strong>AttentionIs All You Need</strong>，但是本文并不会优先介绍attention机制（毕竟还有一篇论文叫做<strong>Attention Is Not All You NeedAnymore</strong>），<em>所以在详细介绍attention之前就请把他当作一个线性层罢</em>。</p><h3 id="transformer总览">Transformer总览</h3><p>接下来这张图我们将会反复出现，这张图就是Transformer的总体架构，其主要构成为Encoder-Decoder框架以及外围的结果输出部分和输入嵌入部分，见下图：</p><p><img src="https://blogpicture-1310464487.cos.ap-nanjing.myqcloud.com/%20typora/image-20240725223605806.png" alt="image-20240725223605806" style="zoom: 67%;" /></p><p>嗯，看到这儿肯定是觉得一脸懵逼的，然后内心一阵暗骂：这都啥玩意？别急，下面我们将按照程序运行的基本顺序来逐个模块进行讲解，基本顺序为输入与嵌入、E-D架构（后面均简称为E-D架构）、输出，按照该顺序我们简单获得一个整体运行的认识。</p><h3 id="输入与嵌入">输入与嵌入</h3><p>相比写的已经烂大街的各种注意力机制的文章，大家最迷糊的一般都是从输入开始的，我们会疑惑的点大概有以下：</p><ul><li>字符串怎么输入？输入后怎么计算？</li><li>嵌入有什么用？又该怎么嵌入？</li><li>位置编码如何发挥作用？又有什么用？</li></ul><p>下面就一个一个的进行解决：</p><h4 id="token">Token</h4><p>我们首先来解决第一个问题，这要牵扯到最最最古老的NLP思想——Token。</p><blockquote><p>Token是指文本中的一个基本单元，通常是词或短语。这个切分token的过程，成为分词（Tokenization）。</p></blockquote><p>我们先简单举个例子：</p><p><code>"Never give up”</code>，考虑对这个句子进行切分，我们很容易想到可以将其切分为<code>-Never-give-up</code>，这是一种基于空格的切分方式，其中Never、give、up都是一个token。</p><p>有些叛逆的同学肯定觉得，我偏不，不就是切分句子吗，我要切分成</p><p><code>-Nevergive-up</code>。甚至还有一些更叛逆的同学想：你说通常token是词或短语是不是也有不太通常的情况，我就要这样切<code>-N-e-v-e-r-g-i-v-e-u-p</code>。</p><p>虽然上面两个同学他都有一定的歪理，但是别忘了我们要解决的问题是什么。我们希望计算机能够理解自然语言，然而计算机并不能对字符串进行什么运算处理，因此我们应该力求通过分割句子的方式来让计算机理解句子的意义。</p><p>于是，词表（Vocabulary）出现了，词表是一个由token与数字组成的一个dict（hashmap）。计算机固然没办法理解一个字符形式的token，但理解一个与token对应的数字还是可以做到的。这让我想起一句话：语言不是什么玄而又玄的，而是十分符合统计学的。</p><p>然后我们来仔细聊聊分词罢。</p><h4 id="tokenization">Tokenization</h4><p>我们刚才说两个同学都有一定歪理，是的，他俩甚至犟嘴的都有道理，甚至都有一定程度的应用。</p><p>目前，分词任务有三个粒度的分词，分别是：</p><ul><li>词粒度</li><li>字粒度</li><li>Subword 粒度</li></ul><p>再介绍这些分词的情况与手段前，我们先回顾并提出一点问题：</p><ul><li>我们要解决的问题是有意义的分出token</li><li>需要兼顾词表的大小与推理速度</li><li>能不能保证模型能够认识从来没见过的词，即，OOV（Out ofVocabulary）问题</li></ul><h5 id="词粒度">词粒度</h5><div style="text-align: center;"><p><iframe    id="ppt"    width="100%"    src="https://onedrive.live.com/embed?resid=F0D7612D44C925FB%21550&authkey=!AJ96EnctAg9b05Q&em=2"    frameborder="0"    style="display: block; max-width: 960px; margin: auto;"></iframe></p></div><h3 id="参考内容">参考内容</h3><p>[1] What is Tokenization in NLP? Here’s All You Need To Knowhttps://www.analyticsvidhya.com/blog/2020/05/what-is-tokenization-nlp/</p><p>[2] <ahref="https://mp.weixin.qq.com/s/0ewnWvf8sQflmamcXpcUfQ">小米面试官：“Tokenization是什么”。封面看着眼熟 (qq.com)</a></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 深度学习 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>多元统计学（一）</title>
       <link href="/2024/06/11/%E5%A4%9A%E5%85%83%E7%BB%9F%E8%AE%A1%E5%AD%A6%EF%BC%88%E4%B8%80%EF%BC%89/"/>
       <url>/2024/06/11/%E5%A4%9A%E5%85%83%E7%BB%9F%E8%AE%A1%E5%AD%A6%EF%BC%88%E4%B8%80%EF%BC%89/</url>
